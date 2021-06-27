@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div class="page">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="slider">
+					<ul class="slides">
+						{% for slider in sliders %}
+						<li><a href="{{ url_for('single', oid=slider.id) }}"><img src="{{ slider.slide }}" /></a></li>												
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div> <!-- .row -->
+		<div class="movie-list">
+			{% for filme in filmes %}
+			<div class="movie">
+				<figure class="movie-poster"><img src="{{ filme.thumb }}" alt="#"></figure>
+				<div class="movie-title"><a href="{{ url_for('single', oid=filme.id) }}">{{ filme.titulo }}</a></div>
+				<p>{{ filme.resumo }}</p>
+			</div>
+			{% endfor %}
+		</div>	
+	</div>
+</div> <!-- .container -->
+{% endblock %}

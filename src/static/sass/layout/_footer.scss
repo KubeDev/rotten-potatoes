@@ -1,0 +1,41 @@
+/*
+ * Footer Styles
+ */
+
+.site-footer{
+	padding: 50px 0;
+	.widget{margin-bottom: 30px}
+	.widget-title{ 
+		color:#bec1c8;
+		font-weight: 300;
+	}
+
+	.subscribe-form{
+		input[type="text"]{
+			width: 100%;
+			border: 1px solid #bec1c8;
+			background-color:transparent;
+			background-image: url(images/arrow.png);
+			background-repeat: no-repeat;
+			background-position: right center;
+			color: inherit;
+			@include em(13);
+			transition: .3s ease;
+
+			&:focus,&:hover{
+				border-color: $accent-color;
+			}
+		}
+	}
+	
+	a{
+		color: $body-color;
+		transition: .3s ease;
+
+		&:hover{
+			color: $accent-color;
+		}
+	}
+
+	.colophon{padding-top: 30px}
+}

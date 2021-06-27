@@ -1,0 +1,65 @@
+/*
+ * Global Styles
+ */
+
+$browser-context: 15; // Default
+
+body {
+	background-color: $bg-color;
+	background-image: url(dummy/background.jpg);
+	background-position: top center;
+	background-repeat: no-repeat;
+	color       : $body-color;
+	font-family : $primary-font;
+	font-size   : #{$browser-context}px;
+	font-weight : 400;
+	line-height : normal;
+
+}
+
+h1,h2,h3,h4,h5,h6{
+	font-weight : 700;
+	margin      : 0 0 20px;
+}
+
+hr{ 
+	border: none;
+	border-bottom: 1px solid #777;
+}
+
+ul, ol {
+	margin: 0;
+	padding-left: 0;
+}
+
+a { 
+	text-decoration: none;
+	color: $accent-color;
+}
+
+address { font-style: normal }
+
+p{ margin-top: 0 }
+
+form{
+
+	input,textarea,select{
+		outline: none;
+		border: 1px solid #ccc;
+		padding: 10px;
+		border-radius: 5px;
+		outline: none;
+	}
+	select{
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+	}
+	textarea{
+		resize: vertical;
+	}
+	input[type="submit"],button, input[type="reset"]{
+		@extend .button;
+	}
+
+}

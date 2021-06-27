@@ -1,0 +1,167 @@
+.main-content{
+	.container{
+		background: white;
+		border-radius: 5px;
+		padding: 30px;
+	}
+}
+
+.section-title{
+	@include em(30);
+	font-weight: 300;
+}
+
+.movie-schedule{
+	list-style: none;
+	li{
+		padding: 10px 0;
+		border-bottom: 1px solid #d7d8da;
+
+		&:last-child{ border-bottom: none }
+	}
+	.date,.entry-title{
+		display: inline-block
+	}
+	.date{
+		width: 80px;
+		padding: 5px 10px;
+		text-align: center;
+		@include em(12);
+		border: 1px solid #d7d8da;
+		border-radius: 3px;
+		margin-right: 10px;
+	}
+	.entry-title{
+		@include em(15);
+		font-weight: 400;
+		margin: 0;
+
+		a{
+			transition: .3s ease;
+			&:hover{color: $body-color}
+		}
+	}
+}
+
+.no-bullet{
+	list-style: none;
+}
+
+.leading{
+	@include em(26);
+	font-weight: 300;
+}
+
+.page{
+	figure{margin-bottom: 30px}
+	img{
+		max-width: 100%;
+	}
+	.movie-title{
+		@include em(36);
+		font-weight: 300;
+	}
+}
+
+.filters{
+	margin-bottom: 50px;
+
+	select{
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		padding: 10px 50px 10px 10px;
+		background-color: #e7e7e7;
+		border-radius:5px;
+		border: none;
+		margin-right: 10px;
+		box-shadow: 0 1px 1px rgba(0,0,0,.3);
+		outline: none;
+		background-image: url(images/select.png);
+		background-repeat: no-repeat;
+		background-position: 100% center;
+
+	}
+}
+
+.movie-list{
+	margin: 0 -15px;
+	.movie{
+		width: 25%;
+		padding: 0 15px;
+		float: left;
+		margin-bottom: 30px;
+
+		@media screen and (min-width:991px){
+			&:nth-child(4n+1){clear: both}
+		}
+		@media screen and (max-width: 990px){
+			width: 50%;
+			&:nth-child(4n+1){clear: none}
+			&:nth-child(2n+1){clear: both}
+		}
+		@media screen and (max-width: 480px){
+			width: 100%;
+			clear: both;
+		}
+
+		.movie-poster{
+			border-radius: 5px;
+			overflow: hidden;
+			margin-bottom: 20px;
+			border: 1px solid transparent;
+
+			img{
+				display: block;
+				width: 100%;
+				max-width: 100%;
+				height: auto;
+				transition: .3s ease;
+			}
+		}
+		&:hover img{ transform: scale(1.2) }
+		.movie-title{
+			@include em(24);
+			font-weight: 300;
+			margin-bottom: 20px;
+
+			a{
+				color: $body-color;
+				transition: .3s ease;
+
+				&:hover{color: $accent-color}
+			}
+		}
+	}
+}
+
+
+.pagination{
+	clear: both;
+	text-align: center;
+
+	.page-number{
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		border-radius: 5px;
+		background: #e7e7e7;
+		box-shadow: 0 1px 1px rgba(0,0,0,.2);
+		line-height: 2.6;
+		color: $body-color;
+		@include em(15);
+		transition: .3s ease;
+
+		&.current,&:hover{
+			background: $accent-color;
+			color: white;
+		}
+
+	}
+}
+
+.movie-meta,.starring{
+	margin-bottom: 30px;
+	list-style: none;
+	li{margin-bottom: 10px}
+}

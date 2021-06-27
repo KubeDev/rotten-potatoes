@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div class="page">
+		<div class="content">
+			<div class="row">
+				<div class="col-md-6">
+					<figure class="movie-poster"><img src="{{ filme.thumb }}" alt="#"></figure>
+				</div>
+				<div class="col-md-6">
+					<h2 class="movie-title">{{ filme.titulo }}</h2>
+					<div class="movie-summary">
+						<p>{{ filme.resumo }}</p>
+					</div>
+					<ul class="movie-meta">
+						<!-- <li><strong>Rating:</strong>
+							<div class="star-rating" title="Rated 3.00 out of 5"><span style="width:80%"><strong
+										class="rating">3.00</strong> out of 5</span></div>
+						</li> -->
+						<li><strong>Duração:</strong>{{ filme.duracao }}</li>
+						<li><strong>Lançamento:</strong>{{ filme.lancamento }}</li>
+						<li><strong>Categoria:</strong>{{ filme.categoria }}</li>
+					</ul>
+
+					<ul class="starring">
+						<li><strong>Direção:</strong>{{ filme.direcao }}</li>
+						<li><strong>Elenco:</strong>{{ filme.elenco }}</li>
+					</ul>
+				</div>
+			</div> <!-- .row -->
+			<div class="content">
+				<div class="row">
+					<div class="col-md-9">
+						<h2>Novo Review</h2>
+						<div class="contact-form">
+							<form method="post">
+								<input type="text" required class="name" name="nome" placeholder="Nome..."
+									value="{{ request.form['nome'] }}">
+								<textarea class="message" required placeholder="Review..." name="review">
+									{{ request.form['review'] }}
+								</textarea>
+								<input type="submit" value="Enviar Review">
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					{% for review in filme.reviews %}
+					<div class="col-md-9">
+						<h2 class="section-title">{{review.nome }} - {{ review.data_review.strftime('%d/%m/%Y %H:%M:%S') }}</h2>
+						<p>{{ review.review }}</p>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div> <!-- .container -->
+{% endblock %}
