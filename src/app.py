@@ -9,46 +9,6 @@ import bson
 from popular import popular
 from prometheus_flask_exporter import PrometheusMetrics
 from middleware import set_unhealth, set_unready_for_seconds, middleware
-from multiprocessing import Process, active_children, cpu_count, Pipe
-import time
-
-FIB_N = 100
-
-
-def fib(n):
-    if n < 2:
-        return 1
-    else:
-        return fib(n - 1) + fib(n - 2)
-
-def loop(conn):
-    proc_info = os.getpid()
-    conn.send(proc_info)
-    conn.close()
-    while True:
-        fib(FIB_N)
-
-
-def pystress(exec_time, proc_num):
-    procs = []
-    conns = []
-    for _ in range(proc_num):
-        parent_conn, child_conn = Pipe()
-        p = Process(target=loop, args=(child_conn,))
-        p.start()
-        procs.append(p)
-        conns.append(parent_conn)
-
-    for conn in conns:
-        try:
-            print(conn.recv())
-        except EOFError:
-            continue
-
-    time.sleep(exec_time)
-
-    for p in procs:
-        p.terminate()
 
 app = Flask(__name__,
             static_url_path='', 

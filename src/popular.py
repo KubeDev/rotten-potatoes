@@ -1,7 +1,12 @@
 import yaml
 from models.filme import Filme
+import time
+import random
 
 def popular():
+
+    n = random.randint(0,5)
+    time.sleep(n/10)
     if not len(Filme.objects) > 0:
         with open('movies.yaml') as arquivo:
             documento = yaml.full_load(arquivo)
