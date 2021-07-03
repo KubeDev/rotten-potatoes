@@ -40,5 +40,5 @@ jobs:
           push: true
           tags: |
             tatoleokubedev/rotten-potatoes:latest
-            tatoleokubedev/rotten-potatoes:${{ guthub.run_number }}
+            tatoleokubedev/rotten-potatoes:${{ github.run_number }}
 
