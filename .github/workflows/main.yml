@@ -28,8 +28,8 @@ jobs:
         # uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         uses: docker/login-action@v1.10.0
         with:
-          username: ${{ DOCKER_USER }}
-          password: ${{ DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
           
       # Runs a single command using the runners shell
       - name: Build and push docker images
