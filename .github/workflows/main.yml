@@ -40,5 +40,21 @@ jobs:
           push: true
           tags: |
             tatoleokubedev/rotten-potatoes:latest
-            tatoleokubedev/rotten-potatoes:${{ github.run_number }}
+            tatoleokubedev/rotten-potatoes:v${{ github.run_number }}
 
+  CD:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    needs: [CI]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Azure Kubernetes set context
+        uses: Azure/aks-set-context@v1.1
+        with:
+          creds: ${{ secrets.AKS_CREDS }}
+          resource-group: DefaultResourceGroup-CUS
+          cluster-name: myAKSCluster
