@@ -47,7 +47,7 @@
 				<div class="row">
 					{% for review in filme.reviews %}
 					<div class="col-md-9">
-						<h2 class="section-title">{{review.nome }} - {{ review.data_review.strftime('%d/%m/%Y %H:%M:%S') }}</h2>
+						<h2 class="section-title">{{ review.data_review.strftime('%d/%m/%Y') }} - {{review.nome }}</h2>
 						<p>{{ review.review }}</p>
 					</div>
 					{% endfor %}

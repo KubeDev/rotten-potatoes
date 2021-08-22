@@ -9,6 +9,7 @@ import bson
 from popular import popular
 from prometheus_flask_exporter import PrometheusMetrics
 from middleware import set_unhealth, set_unready_for_seconds, middleware
+from datetime import datetime
 
 app = Flask(__name__,
             static_url_path='', 
@@ -57,7 +58,7 @@ def single(oid):
     else:
         nome = request.form['nome']
         review = request.form['review']  
-        o_review = Review(nome=nome, review=review)        
+        o_review = Review(nome=nome, review=review, data_review=datetime.now())        
         filme.add_review(o_review)
         filme.save()
         return redirect(url_for('single', oid=oid))
