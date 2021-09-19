@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:4.4.6
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: mongouser
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: mongopwd
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - port: 27017
+      targetPort: 27017
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movies
+spec:
+  selector:
+    matchLabels:
+      app: movies
+  template:
+    metadata:
+      labels:
+        app: movies
+    spec:
+      containers:
+      - name: movies
+        image: fabricioveronez/rotten-potatoes:v1
+        ports:
+          - containerPort: 5000
+        env:
+          - name: MONGODB_DB
+            value: admin
+          - name: MONGODB_HOST
+            value: mongodb-service  
+          - name: MONGODB_PORT
+            value: "27017"
+          - name: MONGODB_USERNAME
+            value: mongouser
+          - name: MONGODB_PASSWORD
+            value: mongopwd
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: movies
+spec:
+  selector:
+    app: movies
+  ports:
+  - port: 80
+    targetPort: 5000
+    nodePort: 30000
+  type: NodePort
