@@ -6,6 +6,7 @@ nodes:
 - role: worker
 - role: worker
 - role: worker
+- role: worker
   extraPortMappings:
   - containerPort: 30000
     hostPort: 8080
