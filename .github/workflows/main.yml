@@ -38,7 +38,7 @@ jobs:
           push: true
           tags: |
             jmscatena/rotten-potatoes:latest
-            jmscatena/rotten-potatoes:v${{ github.run_number }}
+            jmscatena/rotten-potatoes:${{ github.run_number }}
   CD:    
     needs: CI
     runs-on: ubuntu-latest 
@@ -49,4 +49,12 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.K8S_KUBCONFIG }}
+
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v1.3
+        with:
+          images: jmscatena/rotten-potatoes:${{ github.run_number }}
+          manifests: |
+            k8s/manifest.yaml
+            
       
