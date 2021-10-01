@@ -39,7 +39,8 @@ jobs:
           tags: |
             jmscatena/rotten-potatoes:latest
             jmscatena/rotten-potatoes:v${{ github.run_number }}
-  CD:            
+  CD:    
+    needs: CI
     runs-on: ubuntu-latest 
     steps:
       - uses: actions/checkout@v2 # Download do codigo no repositorio
