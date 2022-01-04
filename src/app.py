@@ -6,11 +6,9 @@ from models.review import Review
 from mongodb import db
 from models.filme import Filme
 import bson
-from popular import popular
 from prometheus_flask_exporter import PrometheusMetrics
 from middleware import set_unhealth, set_unready_for_seconds, middleware
 from datetime import datetime
-
 
 app = Flask(__name__,
             static_url_path='', 
@@ -29,8 +27,6 @@ app.config['MONGODB_USERNAME'] = os.getenv("MONGODB_USERNAME", "mongouser")
 app.config['MONGODB_PASSWORD'] = os.getenv("MONGODB_PASSWORD", "mongopwd") 
 
 db.init_app(app)  
-
-popular()
 
 @app.route('/')
 def index():
@@ -73,7 +69,7 @@ def host():
 
 @app.route('/stress/<int:seconds>')
 def stress(seconds):
-    pystress(seconds, 1)
+    #pystress(seconds, 1)
     return Response('OK')
 
 @app.route('/about')
