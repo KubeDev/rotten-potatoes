@@ -1,0 +1,86 @@
+# Deployment do mongoDB
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers: 
+        - name: mongodb
+          image: mongo:5.0.5
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: abed
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: abedpass
+---
+# Service do mongodb
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+spec:
+  selector: 
+    app: mongodb
+  ports: 
+    - port: 27017
+  type: ClusterIP #geralmente criado por padrão
+
+---
+# Deployment do app web Rotten Potatoes
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec: 
+      containers:
+        - name: web
+          image: fabricioveronez/rotten-potatoes:v1
+          ports:
+            - containerPort: 5000
+          env: 
+            - name: MONGODB_DB
+              value: admin
+            - name: MONGODB_HOST
+              value: mongodb
+            - name: MONGODB_PORT
+              value: "27017"
+            - name: MONGODB_USERNAME
+              value: abed
+            - name: MONGODB_PASSWORD
+              value: abedpass
+
+---
+# Deployment service da app web Rotten Potatoes
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector:
+    app: web
+  ports:
+    - port: 80
+      targetPort: 5000
+      nodePort: 30000
+  type: NodePort
