@@ -1,0 +1,89 @@
+# deployment do MongoDB
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:5.0.5
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: mongouser
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: mongopwd
+
+---
+# service do mongoDB
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - port: 27017
+  type: ClusterIP
+
+---
+#Deployment da aplicação web rotten-potatoes
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: ramonmsj/rotten-potatoes:v2
+          ports:
+            - containerPort: 5000
+          env:
+            # nome do banco
+            - name: MONGODB_DB
+              value: admin
+              # service
+            - name: MONGODB_HOST
+              value: mongodb
+              # porta  em string
+            - name: MONGODB_PORT
+              value: "27017"
+              # user (mesmo do container mongo)
+            - name: MONGODB_USERNAME
+              value: mongouser
+              # password ( mesma do container mongo )
+            - name: MONGODB_PASSWORD
+              value: mongopwd
+
+---
+#Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector:
+    app: web
+  ports:
+    - port: 80
+      targetPort: 5000
+      nodePort: 30000
+  type: NodePort
