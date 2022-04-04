@@ -45,4 +45,4 @@ jobs:
         with:
           images: 763ed2a0a734/rotten-potatoes:latest
           manifests: 
-            k8s/deployments.yaml
+            k8s/deployment.yaml
