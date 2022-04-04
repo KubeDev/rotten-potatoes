@@ -28,4 +28,3 @@ jobs:
           push: true
           tags: 
             763ed2a0a734/rotten-potatoes:latest
-            763ed2a0a734/rotten-potatoes:${{ github.run_nuber }}
