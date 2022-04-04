@@ -29,6 +29,7 @@ jobs:
           tags: 
             763ed2a0a734/rotten-potatoes:latest
   CD:
+    needs: [CI]
     runs-on: ubuntu-latest
     
     steps:
