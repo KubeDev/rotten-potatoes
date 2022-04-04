@@ -35,13 +35,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Kubernetes Set Context
-        uses: Azure/k8s-set-context@v2
+        uses: Azure/k8s-set-context@v1.1
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.K8S_CONFIG }}
           
       - name: Deploy to Kubernetes cluster
-        uses: Azure/k8s-deploy@v3.0
+        uses: Azure/k8s-deploy@v1.3
         with:
           images: 763ed2a0a734/rotten-potatoes:latest
           manifests: |
