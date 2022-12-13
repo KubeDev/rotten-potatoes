@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  web:
+    image: rotten-potatoes
+    build:
+      dockerfile: ./Dockerfile
+      context: ./src
+    ports:
+      - 8081:5000
